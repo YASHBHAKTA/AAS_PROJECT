@@ -21,10 +21,11 @@ const Nav = () => {
 
                 <ul className="nav-ul">
 
-                    <li className="txt_colour">Welcome :- {JSON.parse(auth).fname}</li>
+                    <li className="txt_colour">Welcome :- {JSON.parse(auth).email}</li>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About us</Link></li>
-                    <li><Link to="/register" onClick={logout}>LogOut</Link></li>
+                    <li><Link to="/Admin">Admin_C</Link></li>
+                    <li><Link to="/Admin_alumni">Admin_A</Link></li>
+                    <li><Link to="/login" onClick={logout}>LogOut</Link></li>
 
                 </ul>
                 :

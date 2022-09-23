@@ -1,4 +1,4 @@
-import React,{useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 const Login = () => {
     const [password, setPassword] = useState("");
@@ -13,10 +13,10 @@ const Login = () => {
     }, [navigate])
     const handleLogin = async () => {
         console.warn("email , password : ", email, password)
-        let result = await fetch('http://localhost:5000/login_users',{
+        let result = await fetch('http://localhost:5000/login_users', {
 
             method: 'post',
-            body: JSON.stringify({email, password }),
+            body: JSON.stringify({ email, password }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -25,10 +25,30 @@ const Login = () => {
         });
         result = await result.json();
         console.warn(result);
-        if (result.email) {
-            localStorage.setItem("username", JSON.stringify(result));
-            navigate("/")
-        } else {
+        if (result.role === 3) {
+            alert("STUDENT");
+            if (result.email) {
+                localStorage.setItem("username", JSON.stringify(result));
+                navigate("/")
+            }
+        }
+        else if (result.role === 2) {
+            alert("COORDINATOR");
+            if (result.email) {
+                localStorage.setItem("username", JSON.stringify(result));
+                navigate("/")
+            }
+        }
+        else if (result.role === 1) {
+            alert("ADMIN");
+            if (result.email) {
+                localStorage.setItem("username", JSON.stringify(result));
+                navigate("/Admin")
+            }
+        }
+
+
+        else {
             alert("enter correct details..")
         }
     }

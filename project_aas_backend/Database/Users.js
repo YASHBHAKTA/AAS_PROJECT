@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 const userSchema = new mongoose.Schema({
     enrollment:Number,
-    profimg:String,
+    profimg:String, 
     fname:String,
     mname:String,
     lname:String,
@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
     email:String,
     deptid:Number,
     yog:Number,
-    password:String
+    password:String,
+    STATUS:Number
 });
 
 module.exports = mongoose.model("reg_users",userSchema);
