@@ -51,7 +51,7 @@ const Register = () => {
 
         let useresult = await fetch('http://localhost:5000/user_registration', {
             method: 'post',
-            body: JSON.stringify({ email,password, role:"3" }),
+            body: JSON.stringify({ email,password, role:"3",STATUS:"1" }),
             headers: {
                 'Content-Type': 'application/json'
             },

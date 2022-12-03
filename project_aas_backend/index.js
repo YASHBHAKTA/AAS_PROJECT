@@ -113,37 +113,77 @@ app.post("/add_alumni", async (req, resp) => {
     resp.send(result);
 })
 
-app.get("/Disp_student/:key", async (req, resp) => {
-    //let result = await Users.find();
+app.get("/Disp_student", async (req, resp) => {
+    
+    // try {
+    //     const result = await Users.find(
+    //         {
+    //             "$or":[
+    //                 {
+    //                 "role" : 3
+    //                     }
+    //             ]
+    //         }
+    //     );
 
-    //resp.send(result);
-    try {
-        const result = await Users.find(
-            {
-                "$or":[
-                    {"role" : Number(req.params.key)}
-                ]
-            }
-        );
+    //     if (result) {
+    //         resp.send({ data: result });
+    //     } else {
+    //         resp.send(JSON.stringify("No records found!"));
+    //     }
 
-        if (result) {
-            resp.send({ data: result });
-        } else {
-            resp.send(JSON.stringify("No records found!"));
-        }
+    //     //console.log(result);
+    // } catch (err) {
+    //     console.log(err.message);
+    // }
 
-        //console.log(result);
-    } catch (err) {
-        console.log(err.message);
+    let users=await Users.find();
+    if(users.length>0){
+        resp.send(users)
+
+    }
+    else{
+        resp.send({result:"No found"})
     }
 })
+
+// app.get("/Disp_cordinator", async (req, resp) => {
+//     //let result = await Users.find();
+
+//     //resp.send(result);
+//     try {
+//         const result = await cordinator.find(
+//             {
+//                 "$or":[
+//                     {"STATUS" : 1}
+//                 ]
+//             }
+//         );
+
+//         if (result) {
+//             resp.send({ data: result });
+//         } else {
+//             resp.send(JSON.stringify("No records found!"));
+//         }
+
+//         //console.log(result);
+//     } catch (err) {
+//         console.log(err.message);
+//     }
+// })
 
 app.get("/Disp_cordinator", async (req, resp) => {
     let result = await cordinator.find();
 
     //resp.send(result);
     try {
-        const result = await cordinator.find();
+        const result = await cordinator.find(
+            {
+                "$or":[
+                    {"STATUS" : 1}
+                ]
+            }
+        );
 
         if (result) {
             resp.send({ data: result });
@@ -233,6 +273,8 @@ app.patch("/update_student/:id", async (req, resp, next) => {
     }
 })
 
+
+
 app.patch("/delete_student/:id", async (req, resp, next) => {
     try {
         let id = req.params.id;
@@ -251,11 +293,49 @@ app.patch("/delete_student/:id", async (req, resp, next) => {
     }
 })
 
+
+
 app.post("/add_dept", async (req, resp) => {
     let data = new deptschema(req.body);
     let result = await data.save();
     resp.send(result);
 
 })
+
+app.delete("/users_del/:id",async(req,resp)=>{
+    
+    const result =await user_registration.deleteOne({_id:req.params.id})
+    resp.send(result);
+})
+app.get("/users_update/:id",async(req,resp)=>{
+    let result=await user_registration.findOne({_id:req.params.id});
+    if(result){
+        resp.send(result)
+    }else{
+        resp.send({result : "NOT FOUND"})
+    }
+})
+
+app.put("/users_update/:id", async (req,resp) => {
+    let result = await user_registration.updateOne(
+        {_id: req.params.id},
+        {
+            $set : req.body
+        }
+    )
+    resp.send(result);
+});
+
+app.get("/users_update/:id", async (req,resp) => {
+    let result = await user_registration.findOne({_id: req.params.id});
+    if(result)
+    {
+        resp.send(result);
+    }
+    else
+    {
+        resp.send({result:"No Record Found"});
+    }
+});
 
 app.listen(5000);

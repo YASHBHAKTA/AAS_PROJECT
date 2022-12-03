@@ -25,7 +25,9 @@ const Nav = () => {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/Admin">Admin_C</Link></li>
                     <li><Link to="/Admin_alumni">Admin_A</Link></li>
+                    <li><Link to="/cordinatorlist">CL</Link></li>
                     <li><Link to="/login" onClick={logout}>LogOut</Link></li>
+                    <li><Link to="/Admin/manage_student">Admin_student</Link></li>
 
                 </ul>
                 :
